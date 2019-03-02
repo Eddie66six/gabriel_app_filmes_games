@@ -16,9 +16,9 @@ class _CardMovieState extends State<CardMovie> {
     return Stack(
       children: <Widget>[
         Container(
-          margin: EdgeInsets.all(widget.paddingCards),
-          height: widget.height / 3,
-          width: widget.width / 2.5,
+          margin: EdgeInsets.only(top: widget.paddingCards, left: widget.paddingCards, right: widget.paddingCards,bottom: widget.paddingCards * 2),
+          height: widget.height / 4,
+          width: widget.width / 3,
           decoration: new BoxDecoration(
               borderRadius: BorderRadius.all(new Radius.circular(10.0)),
               boxShadow: [
@@ -38,7 +38,7 @@ class _CardMovieState extends State<CardMovie> {
               )),
         ),
         Container(
-          width: widget.width/ 2.5,
+          width: widget.width/ 3,
           margin: EdgeInsets.all(10),
           child: Container(
             padding: EdgeInsets.all(5),

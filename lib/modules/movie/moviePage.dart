@@ -13,7 +13,7 @@ class _MoviePageState extends State<MoviePage> {
     var size =MediaQuery.of(context);
     return Container(
       decoration: BoxDecoration(color: Colors.white),
-      padding: EdgeInsets.only(top: size.padding.top, bottom: 60),// 60 altura do menu
+      padding: EdgeInsets.only(top: size.padding.top, bottom: 80),// 60 altura do menu
       child: Column(
       children: <Widget>[
         //pesquisa etc
