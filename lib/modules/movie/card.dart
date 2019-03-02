@@ -20,7 +20,7 @@ class _CardMovieState extends State<CardMovie> {
           height: widget.height / 4,
           width: widget.width / 3,
           decoration: new BoxDecoration(
-              borderRadius: BorderRadius.all(new Radius.circular(10.0)),
+              borderRadius: BorderRadius.all(new Radius.circular(7.0)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black38,

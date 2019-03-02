@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gabriel_app_filmes_games/components/inputSearch.dart';
 import 'package:gabriel_app_filmes_games/modules/movie/card.dart';
 
 class MoviePage extends StatefulWidget {
@@ -7,31 +8,37 @@ class MoviePage extends StatefulWidget {
 }
 
 class _MoviePageState extends State<MoviePage> {
-  var paddingCards = 10.0;
+  var paddingCards = 5.0;
   @override
   Widget build(BuildContext context) {
     var size =MediaQuery.of(context);
     return Container(
       decoration: BoxDecoration(color: Colors.white),
-      padding: EdgeInsets.only(top: size.padding.top, bottom: 80),// 60 altura do menu
+      padding: EdgeInsets.only(top: size.padding.top + 10, bottom: 65, left: 10, right: 10),// 65 altura do menu
       child: Column(
       children: <Widget>[
         //pesquisa etc
         Row(
           children: <Widget>[
-            Text("Pesquisa"),
-            Text("Menu"),
-            Text("Config")
+            InputSearch(double.infinity),
+            Icon(Icons.menu, size: 40),
+            Icon(Icons.settings, size: 40)
           ]
         ),
         //localizaçao
-        Column(
-          children: <Widget>[
-            //cidade
-            Text("Cidade"),
-            //estado
-            Text("Estado")
-          ],
+        Container(
+          alignment: Alignment.topCenter,
+          margin: EdgeInsets.only(top: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              //cidade
+              Text("São Paulo", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              //estado
+              Text("Sorocaba")
+            ],
+          ),
         ),
         //listagem
         Expanded(

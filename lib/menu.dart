@@ -53,7 +53,7 @@ class _MenuState extends State<Menu> {
           children: <Widget>[
             body,
             Container(
-              height: 80,
+              height: 65,
               decoration: BoxDecoration(color: Colors.white),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -68,8 +68,8 @@ class _MenuState extends State<Menu> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              height: 44,
-                              width: 	44,
+                              height: 40,
+                              width: 	40,
                               decoration:
                                 BoxDecoration(
                                   image: DecorationImage(image: menus[index].icon),
@@ -80,9 +80,9 @@ class _MenuState extends State<Menu> {
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              Container(width: 2,height: 40, decoration: BoxDecoration(color: Colors.grey)),
+                              Container(width: 2,height: 25, decoration: BoxDecoration(color: Colors.grey)),
                               CircleAvatar(
-                                radius: 30.0,
+                                radius: 25.0,
                                 backgroundImage: menus[index].iconNetWork,
                                 backgroundColor: Colors.red,
                               )
