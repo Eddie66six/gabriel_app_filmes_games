@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gabriel_app_filmes_games/components/inputSearch.dart';
+import 'package:gabriel_app_filmes_games/models/movie.dart';
 import 'package:gabriel_app_filmes_games/modules/movie/card.dart';
 
 class MoviePage extends StatefulWidget {
@@ -8,7 +9,72 @@ class MoviePage extends StatefulWidget {
 }
 
 class _MoviePageState extends State<MoviePage> {
+  var _scrollController = new ScrollController();
+  var qtdePorPagina = 8;
+  var noMoreData = false;
   var paddingCards = 5.0;
+  var isLoading = true;
+  //fake
+  List<Movie> _getAllMovies(){
+    return List.generate(23, (index) => Movie(index, "movie " + index.toString(),
+    "https://picsum.photos/200/300/?image=" + index.toString(),
+    ["Romance"], false, 1));
+  }
+  //fake
+  Future<List<Movie>> fakeRequest(int skip, int take) async {
+    await Future.delayed(Duration(seconds: 2));
+    return _getAllMovies().skip(skip).take(take).toList();
+  }
+  //utilizando duas lista para fazer o skip take dos itens em uma lista com duas colunas
+  List<Movie> filmesL = new List();
+  List<Movie> filmesR = new List();
+
+  @override
+  void initState() {
+    super.initState();
+    //faz a primeira chamada ao iniciar a tela
+    fakeRequest(0, qtdePorPagina).then((data) {
+      setState(() {
+        if(data.length == 0){
+          noMoreData = true;
+          return;
+        }
+        for (var i = 0; i < data.length; i++) {
+          if(i%2 == 0)
+            filmesL.add(data[i]);
+          else
+            filmesR.add(data[i]);
+        }
+        isLoading = false;
+      });
+    });
+    //detecta o scroll e faz a validaçao para obter mais itens
+     _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        fakeRequest(filmesL.length + filmesR.length, qtdePorPagina).then((data) {
+          setState(() {
+            if(data.length == 0){
+              noMoreData = true;
+              return;
+            }
+            for (var i = 0; i < data.length; i++) {
+              if(i%2 == 0)
+                filmesL.add(data[i]);
+              else
+                filmesR.add(data[i]);
+            }
+          });
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size =MediaQuery.of(context);
@@ -28,7 +94,7 @@ class _MoviePageState extends State<MoviePage> {
         //localizaçao
         Container(
           alignment: Alignment.topCenter,
-          margin: EdgeInsets.only(top: 5),
+          margin: EdgeInsets.only(top: 5, bottom: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -43,17 +109,27 @@ class _MoviePageState extends State<MoviePage> {
         //listagem
         Expanded(
           flex: 1,
-          child: new ListView(
-            children: List.generate(30, (item){
-              return Row(
+          child: !isLoading ? ListView.builder(
+            padding: new EdgeInsets.all(0),
+            controller: _scrollController,
+            itemCount: filmesL.length,
+            itemBuilder: (b, index){
+              if (filmesL.length == index + 1 && !noMoreData) {
+                return Container(margin: EdgeInsets.all(5), child: Center(child: CircularProgressIndicator()));
+              }
+              else {
+                return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CardMovie(paddingCards, size.size.height, size.size.width, "https://3.bp.blogspot.com/-DqdMb5FK3lw/VNSqwm-lyHI/AAAAAAAADX0/_pX3hvQblKQ/s1600/hellraiser-1987.jpg"),
-                  CardMovie(paddingCards, size.size.height, size.size.width, "https://3.bp.blogspot.com/-DqdMb5FK3lw/VNSqwm-lyHI/AAAAAAAADX0/_pX3hvQblKQ/s1600/hellraiser-1987.jpg")
-                ],
-              );
-            })
-          ),
+                  children: <Widget>[
+                    CardMovie(paddingCards, size.size.height, size.size.width,
+                      filmesL[index].urlImage),
+                    CardMovie(paddingCards, size.size.height, size.size.width, 
+                      filmesR.length > index ? filmesR[index].urlImage: null)
+                  ],
+                );
+              }
+            },
+          ) : Container(margin: EdgeInsets.all(5), child: Center(child: CircularProgressIndicator())),
         )
       ],
       )

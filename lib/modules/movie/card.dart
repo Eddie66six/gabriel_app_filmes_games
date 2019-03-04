@@ -13,7 +13,7 @@ class CardMovie extends StatefulWidget {
 class _CardMovieState extends State<CardMovie> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return widget.imageUrl != null ? Stack(
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: widget.paddingCards, left: widget.paddingCards, right: widget.paddingCards,bottom: widget.paddingCards * 2),
@@ -38,7 +38,7 @@ class _CardMovieState extends State<CardMovie> {
               )),
         ),
         Container(
-          width: widget.width/ 3,
+          width: widget.width/ 3.2,
           margin: EdgeInsets.all(10),
           child: Container(
             padding: EdgeInsets.all(5),
@@ -60,6 +60,10 @@ class _CardMovieState extends State<CardMovie> {
           )
         )
       ],
+    ) :Container(
+        margin: EdgeInsets.only(top: widget.paddingCards, left: widget.paddingCards, right: widget.paddingCards,bottom: widget.paddingCards * 2),
+        height: widget.height / 4,
+        width: widget.width / 2.8,
     );
   }
 }
