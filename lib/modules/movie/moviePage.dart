@@ -105,7 +105,7 @@ class _MoviePageState extends State<MoviePage> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               //cidade
-              Text("São Paulo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text("São Paulo", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               //estado
               Text("Sorocaba")
             ],
@@ -133,9 +133,9 @@ class _MoviePageState extends State<MoviePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     CardMovie(paddingCards, size.size.height, size.size.width,
-                      filmesL[index].urlImage),
+                      filmesL[index].urlImage, ["Romance", "Comedia"]),
                     CardMovie(paddingCards, size.size.height, size.size.width, 
-                      filmesR.length > index ? filmesR[index].urlImage: null)
+                      filmesR.length > index ? filmesR[index].urlImage: null, ["Ação", "Aventura", "Medieval"])
                   ],
                 );
               }

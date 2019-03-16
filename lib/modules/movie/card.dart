@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:gabriel_app_filmes_games/components/squareChipsRowOverflowPlus.dart';
 
 class CardMovie extends StatefulWidget {
-  CardMovie(this.paddingCards, this.height, this.width, this.imageUrl);
+  CardMovie(this.paddingCards, this.height, this.width, this.imageUrl, this.types);
   final double paddingCards;
   final double height;
   final double width;
   final String imageUrl;
+  final List<String> types;
   @override
   _CardMovieState createState() => _CardMovieState();
 }
 
 class _CardMovieState extends State<CardMovie> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //create chips
+
+  }
   @override
   Widget build(BuildContext context) {
     return widget.imageUrl != null ? Stack(
@@ -41,11 +50,11 @@ class _CardMovieState extends State<CardMovie> {
         ),
         Positioned(
           top: widget.height/ 2.9 - 12,// - font size
-          left: 0,
-          height: widget.height,
+          left: -5,
           child: Container(
-            margin: EdgeInsets.only(left: 20),
-            child: Text("Tipo", style: TextStyle(color: Colors.white)),
+            //decoration: BoxDecoration(color: Colors.red),
+            width: widget.width/2 - widget.paddingCards,
+            child: SquareChipsRowOverflowPlus(widget.types, widget.width/2 - widget.paddingCards)
           )
         )
       ],
