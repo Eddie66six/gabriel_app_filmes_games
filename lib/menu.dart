@@ -47,14 +47,13 @@ class _MenuState extends State<Menu> {
     var selectedTextStyle = TextStyle(color: Colors.green);
     var notSelectedTextStyle = TextStyle(color: Colors.grey);
     return Scaffold(
-        backgroundColor: Colors.white70,
         body: Stack(
           alignment: Alignment(0, 1),
           children: <Widget>[
             body,
             Container(
-              height: 65,
-              decoration: BoxDecoration(color: Colors.white),
+              height: 55,
+              decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Colors.grey, width: 0.4))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(menus.length,(index){
@@ -68,21 +67,21 @@ class _MenuState extends State<Menu> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              height: 40,
+                              height: 35,
                               width: 	40,
                               decoration:
                                 BoxDecoration(
                                   image: DecorationImage(image: menus[index].icon),
                                 ),
                             ),
-                            Text(menus[index].title, style: currentSelectedIndex == index ? selectedTextStyle : notSelectedTextStyle)
+                            //Text(menus[index].title, style: currentSelectedIndex == index ? selectedTextStyle : notSelectedTextStyle)
                         ])
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Container(width: 2,height: 25, decoration: BoxDecoration(color: Colors.grey)),
                               CircleAvatar(
-                                radius: 25.0,
+                                radius: 20.0,
                                 backgroundImage: menus[index].iconNetWork,
                                 backgroundColor: Colors.red,
                               )

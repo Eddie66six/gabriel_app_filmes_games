@@ -24,7 +24,7 @@ class _InputSearchState extends State<InputSearch> {
   Widget build(BuildContext context) {
     return Flexible(
       child: Container(
-          height: 40,
+          height: 35,
           width: widget.width,
           padding: EdgeInsets.only(left: 15),
           margin: EdgeInsets.only(right: 15),
@@ -36,8 +36,8 @@ class _InputSearchState extends State<InputSearch> {
           child: Row(
             children: <Widget>[
               Container(
-                height: 30,
-                width: 30,
+                height: 20,
+                width: 20,
                 margin: EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(image: DecorationImage(image: widget.icon)),
               ),
@@ -46,7 +46,7 @@ class _InputSearchState extends State<InputSearch> {
                   controller: inputController,
                   decoration: InputDecoration(
                     hintText: "Search by movie or year",
-                    hintStyle: TextStyle(fontSize: 20),
+                    hintStyle: TextStyle(fontSize: 16),
                     border: InputBorder.none,
                     contentPadding: EdgeInsetsDirectional.only(bottom: 0)
                   )

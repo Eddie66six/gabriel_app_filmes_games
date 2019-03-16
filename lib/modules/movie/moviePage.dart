@@ -86,31 +86,36 @@ class _MoviePageState extends State<MoviePage> {
     var size =MediaQuery.of(context);
     return Container(
       decoration: BoxDecoration(color: Colors.white),
-      padding: EdgeInsets.only(top: size.padding.top + 10, bottom: 65, left: 10, right: 10),// 65 altura do menu
+      padding: EdgeInsets.only(top: size.padding.top + 10, bottom: 55, left: 10, right: 10),// 65 altura do menu
       child: Column(
       children: <Widget>[
         //pesquisa etc
         Row(
           children: <Widget>[
             InputSearch(double.infinity, PngIncons().searchSolid, (s)=> _eventSearch(s)),
-            Icon(Icons.menu, size: 40),
-            Icon(Icons.settings, size: 40)
+            Icon(Icons.menu, size: 40)
           ]
         ),
         //localizaçao
         Container(
           alignment: Alignment.topCenter,
-          margin: EdgeInsets.only(top: 5, bottom: 20),
+          margin: EdgeInsets.only(top: 5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               //cidade
-              Text("São Paulo", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text("São Paulo", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               //estado
               Text("Sorocaba")
             ],
           ),
+        ),
+        //linha de separaçao
+        Container(
+          height: 0.3,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(color: Colors.black),
         ),
         //listagem
         Expanded(

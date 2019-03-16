@@ -17,28 +17,17 @@ class _CardMovieState extends State<CardMovie> {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(top: widget.paddingCards, left: widget.paddingCards, right: widget.paddingCards,bottom: widget.paddingCards * 2),
-          height: widget.height / 4,
-          width: widget.width / 3,
+          height: widget.height / 2.7,
+          width: widget.width / 2.3,
           decoration: new BoxDecoration(
               borderRadius: BorderRadius.all(new Radius.circular(7.0)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black38,
-                  blurRadius: 5.0, // has the effect of softening the shadow
-                  spreadRadius: 2.0, // has the effect of extending the shadow
-                  offset: Offset(
-                    0.0, // horizontal, move right 10
-                    5.0, // vertical, move down 10
-                  ),
-                )
-              ],
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: NetworkImage(widget.imageUrl),
               )),
         ),
         Container(
-          width: widget.width/ 3.2,
+          width: widget.width/ 2.5,
           margin: EdgeInsets.all(10),
           child: Container(
             padding: EdgeInsets.all(5),
@@ -51,7 +40,7 @@ class _CardMovieState extends State<CardMovie> {
           )
         ),
         Positioned(
-          top: widget.height/3 - 12,// - font size
+          top: widget.height/ 2.9 - 12,// - font size
           left: 0,
           height: widget.height,
           child: Container(
