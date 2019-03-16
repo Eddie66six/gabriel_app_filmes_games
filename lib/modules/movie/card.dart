@@ -27,15 +27,15 @@ class _CardMovieState extends State<CardMovie> {
               )),
         ),
         Container(
-          width: widget.width/ 2.5,
-          margin: EdgeInsets.all(10),
+          width: widget.width/ 2.3,
+          margin: EdgeInsets.all(5),
           child: Container(
             padding: EdgeInsets.all(5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Icon(Icons.star),
-                Icon(Icons.favorite)
+                Icon(Icons.star, size: 40, color: Colors.white),
+                Icon(Icons.favorite, size: 40, color: Colors.white)
             ]),
           )
         ),
