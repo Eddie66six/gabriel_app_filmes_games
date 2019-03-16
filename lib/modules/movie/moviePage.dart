@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gabriel_app_filmes_games/components/inputSearch.dart';
 import 'package:gabriel_app_filmes_games/models/movie.dart';
 import 'package:gabriel_app_filmes_games/modules/movie/card.dart';
+import 'package:gabriel_app_filmes_games/pngIcons.dart';
 
 class MoviePage extends StatefulWidget {
   @override
@@ -14,6 +15,7 @@ class _MoviePageState extends State<MoviePage> {
   var noMoreData = false;
   var paddingCards = 5.0;
   var isLoading = true;
+  String strSearch = "";
   //fake
   List<Movie> _getAllMovies(){
     return List.generate(23, (index) => Movie(index, "movie " + index.toString(),
@@ -21,58 +23,62 @@ class _MoviePageState extends State<MoviePage> {
     ["Romance"], false, 1));
   }
   //fake
-  Future<List<Movie>> fakeRequest(int skip, int take) async {
+  Future<List<Movie>> fakeRequest(String search ,int skip, int take) async {
     await Future.delayed(Duration(seconds: 2));
-    return _getAllMovies().skip(skip).take(take).toList();
+    if(search != null && search != "")
+      return _getAllMovies().where((i) => i.name.contains(search)).skip(skip).take(take).toList();
+    else
+      return _getAllMovies().skip(skip).take(take).toList();
   }
   //utilizando duas lista para fazer o skip take dos itens em uma lista com duas colunas
   List<Movie> filmesL = new List();
   List<Movie> filmesR = new List();
 
+  _request(int skip, bool reload){
+    if(reload){
+      setState(() {
+        filmesL = new List();   
+      });
+    }
+    fakeRequest(strSearch, skip, qtdePorPagina).then((data) {
+        setState(() {
+          if(data.length == 0){
+            noMoreData = true;
+            return;
+          }
+          for (var i = 0; i < data.length; i++) {
+            if(i%2 == 0)
+              filmesL.add(data[i]);
+            else
+              filmesR.add(data[i]);
+          }
+          isLoading = false;
+        });
+      });
+  }
+
   @override
   void initState() {
     super.initState();
     //faz a primeira chamada ao iniciar a tela
-    fakeRequest(0, qtdePorPagina).then((data) {
-      setState(() {
-        if(data.length == 0){
-          noMoreData = true;
-          return;
-        }
-        for (var i = 0; i < data.length; i++) {
-          if(i%2 == 0)
-            filmesL.add(data[i]);
-          else
-            filmesR.add(data[i]);
-        }
-        isLoading = false;
-      });
-    });
+    _request(0, false);
     //detecta o scroll e faz a validaçao para obter mais itens
      _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        fakeRequest(filmesL.length + filmesR.length, qtdePorPagina).then((data) {
-          setState(() {
-            if(data.length == 0){
-              noMoreData = true;
-              return;
-            }
-            for (var i = 0; i < data.length; i++) {
-              if(i%2 == 0)
-                filmesL.add(data[i]);
-              else
-                filmesR.add(data[i]);
-            }
-          });
-        });
+        _request(filmesL.length + filmesR.length, false);
       }
-    });
+     });
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  _eventSearch(str){
+    strSearch = str;
+    _request(0, true);
   }
 
   @override
@@ -86,7 +92,7 @@ class _MoviePageState extends State<MoviePage> {
         //pesquisa etc
         Row(
           children: <Widget>[
-            InputSearch(double.infinity),
+            InputSearch(double.infinity, PngIncons().searchSolid, (s)=> _eventSearch(s)),
             Icon(Icons.menu, size: 40),
             Icon(Icons.settings, size: 40)
           ]
