@@ -13,12 +13,21 @@ class CardMovie extends StatefulWidget {
 }
 
 class _CardMovieState extends State<CardMovie> {
+  ImageProvider image;
+  bool _loading = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    //create chips
-
+    if(widget.imageUrl != null){
+      image = new NetworkImage(widget.imageUrl);
+      image.resolve(new ImageConfiguration()).addListener((_, __) {
+        if (mounted) {
+          setState(() {
+            _loading = false;
+          });
+        }
+      });
+    }
   }
   @override
   Widget build(BuildContext context) {
@@ -28,11 +37,11 @@ class _CardMovieState extends State<CardMovie> {
           margin: EdgeInsets.only(top: widget.paddingCards, left: widget.paddingCards, right: widget.paddingCards,bottom: widget.paddingCards * 2),
           height: widget.height / 2.7,
           width: widget.width / 2.3,
-          decoration: new BoxDecoration(
+          decoration: _loading ? BoxDecoration(color: Colors.grey) : BoxDecoration(
               borderRadius: BorderRadius.all(new Radius.circular(7.0)),
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: NetworkImage(widget.imageUrl),
+                image: image,
               )),
         ),
         Container(
