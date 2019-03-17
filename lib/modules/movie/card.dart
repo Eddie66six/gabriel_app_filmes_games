@@ -37,7 +37,9 @@ class _CardMovieState extends State<CardMovie> {
           margin: EdgeInsets.only(top: widget.paddingCards, left: widget.paddingCards, right: widget.paddingCards,bottom: widget.paddingCards * 2),
           height: widget.height / 2.7,
           width: widget.width / 2.3,
-          decoration: _loading ? BoxDecoration(color: Colors.grey) : BoxDecoration(
+          decoration: _loading ? 
+            BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.all(new Radius.circular(7.0)))
+            : BoxDecoration(
               borderRadius: BorderRadius.all(new Radius.circular(7.0)),
               image: DecorationImage(
                 fit: BoxFit.fill,
