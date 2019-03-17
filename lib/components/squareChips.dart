@@ -10,7 +10,7 @@ class SquareChips extends StatelessWidget {
           border: Border.all(color: Colors.white),
           borderRadius: BorderRadius.all(new Radius.circular(7.0))),
       padding: EdgeInsets.all(4),
-      margin: EdgeInsets.only(left: 20),
+      margin: EdgeInsets.only(left: 2, right: 2),
       child:
           Text(text, style: TextStyle(color: Colors.white)),
     );

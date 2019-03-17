@@ -63,8 +63,8 @@ class _CardMovieState extends State<CardMovie> {
           top: widget.height/ 2.9 - 12,// - font size
           left: -5,
           child: Container(
-            //decoration: BoxDecoration(color: Colors.red),
             width: widget.width/2 - widget.paddingCards,
+            margin: EdgeInsets.only(left: 20),
             child: SquareChipsRowOverflowPlus(widget.types, widget.width/2 - widget.paddingCards)
           )
         )
