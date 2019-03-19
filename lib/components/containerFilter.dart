@@ -45,7 +45,7 @@ class ShapesPainter extends CustomPainter {
     final paint = Paint();
     var rect = new Rect.fromLTRB(0.0, 0.0, 30, 30);
     paint.color = backgroundColor;
-    canvas.rotate(70);
+    canvas.rotate(69.9);
     canvas.drawRect(rect, paint);
   }
   @override
