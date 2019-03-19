@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gabriel_app_filmes_games/components/containerFilter.dart';
 import 'package:gabriel_app_filmes_games/components/inputSearch.dart';
 import 'package:gabriel_app_filmes_games/models/movie.dart';
 import 'package:gabriel_app_filmes_games/modules/movie/card.dart';
@@ -93,7 +94,13 @@ class _MoviePageState extends State<MoviePage> {
         Row(
           children: <Widget>[
             InputSearch(double.infinity, PngIncons().searchSolid, (s)=> _eventSearch(s)),
-            Icon(Icons.menu, size: 40)
+            InkWell(
+              child: Icon(Icons.menu, size: 40),
+              onTap: (){
+                showDialog(context: context,builder:
+                  (context) => ContainerFilter(context, size.size.height, size.size.width , size.padding.top + 20, Colors.white));
+              }
+            )
           ]
         ),
         //localizaçao
