@@ -76,7 +76,7 @@ class _MoviePageState extends State<MoviePage> {
     if(strSearch == str) return;
     var clear = strSearch.length > 0 && str == "";
     strSearch = str;
-    if((strSearch != null && strSearch.length > 2) || clear){
+    if(strSearch != null || clear){
       _request(0);
     }
   }
