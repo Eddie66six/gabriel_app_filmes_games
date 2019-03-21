@@ -4,6 +4,7 @@ import 'package:gabriel_app_filmes_games/components/inputSearch.dart';
 import 'package:gabriel_app_filmes_games/models/movie.dart';
 import 'package:gabriel_app_filmes_games/modules/movie/card.dart';
 import 'package:gabriel_app_filmes_games/pngIcons.dart';
+import 'package:gabriel_app_filmes_games/services/fakesRequest.dart';
 
 class MoviePage extends StatefulWidget {
   @override
@@ -12,39 +13,31 @@ class MoviePage extends StatefulWidget {
 
 class _MoviePageState extends State<MoviePage> {
   var _scrollController = new ScrollController();
-  var qtdePorPagina = 8;
   var noMoreData = false;
   var paddingCards = 5.0;
   var isLoading = true;
   String strSearch = "";
-  //fake
-  List<Movie> _getAllMovies(){
-    return List.generate(23, (index) => Movie(index, "movie " + index.toString(),
-    "https://picsum.photos/200/300/?image=" + index.toString(),
-    ["Romance"], false, 1));
-  }
-  //fake
-  Future<List<Movie>> fakeRequest(String search ,int skip, int take) async {
-    await Future.delayed(Duration(seconds: 2));
-    if(search != null && search != "")
-      return _getAllMovies().where((i) => i.name.contains(search)).skip(skip).take(take).toList();
-    else
-      return _getAllMovies().skip(skip).take(take).toList();
-  }
+  var buscar = false;
+  
   //utilizando duas lista para fazer o skip take dos itens em uma lista com duas colunas
   List<Movie> filmesL = new List();
   List<Movie> filmesR = new List();
 
-  _request(int skip, bool reload){
-    if(reload){
-      setState(() {
-        filmesL = new List();   
-      });
-    }
-    fakeRequest(strSearch, skip, qtdePorPagina).then((data) {
+  _request(int skip){
+    setState(() {
+      if(skip == 0)
+        isLoading = true; 
+    });
+    FakesRequest.getMovies(strSearch, skip, 6).then((data) {
         setState(() {
+          if(skip == 0){
+            noMoreData = false;
+            filmesL = new List();
+            filmesR = new List();
+          }
           if(data.length == 0){
             noMoreData = true;
+            isLoading = false;
             return;
           }
           for (var i = 0; i < data.length; i++) {
@@ -53,6 +46,8 @@ class _MoviePageState extends State<MoviePage> {
             else
               filmesR.add(data[i]);
           }
+          if(data.length < 6)
+            noMoreData = true;
           isLoading = false;
         });
       });
@@ -62,11 +57,11 @@ class _MoviePageState extends State<MoviePage> {
   void initState() {
     super.initState();
     //faz a primeira chamada ao iniciar a tela
-    _request(0, false);
+    _request(0);
     //detecta o scroll e faz a validaçao para obter mais itens
      _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        _request(filmesL.length + filmesR.length, false);
+        _request(filmesL.length + filmesR.length);
       }
      });
   }
@@ -78,8 +73,12 @@ class _MoviePageState extends State<MoviePage> {
   }
 
   _eventSearch(str){
+    if(strSearch == str) return;
+    var clear = strSearch.length > 0 && str == "";
     strSearch = str;
-    _request(0, true);
+    if((strSearch != null && strSearch.length > 2) || clear){
+      _request(0);
+    }
   }
 
   @override
@@ -140,9 +139,11 @@ class _MoviePageState extends State<MoviePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     CardMovie(paddingCards, size.size.height, size.size.width,
-                      filmesL[index].urlImage, ["Romance", "Comedia"]),
+                      filmesL.length > index ? filmesL[index].urlImage: null,
+                        filmesL.length > index ? filmesL[index].types : null),
                     CardMovie(paddingCards, size.size.height, size.size.width, 
-                      filmesR.length > index ? filmesR[index].urlImage: null, ["Ação", "Aventura", "Medieval"])
+                      filmesR.length > index ? filmesR[index].urlImage: null,
+                        filmesR.length > index ? filmesR[index].types : null)
                   ],
                 );
               }

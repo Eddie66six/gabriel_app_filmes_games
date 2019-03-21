@@ -64,15 +64,15 @@ class _CardMovieState extends State<CardMovie> {
           left: -5,
           child: Container(
             width: widget.width/2 - widget.paddingCards,
-            margin: EdgeInsets.only(left: 20),
+            margin: EdgeInsets.only(left: 15),
             child: SquareChipsRowOverflowPlus(widget.types, widget.width/2 - widget.paddingCards)
           )
         )
       ],
     ) :Container(
         margin: EdgeInsets.only(top: widget.paddingCards, left: widget.paddingCards, right: widget.paddingCards,bottom: widget.paddingCards * 2),
-        height: widget.height / 4,
-        width: widget.width / 2.8,
+        height: widget.height / 2.7,
+        width: widget.width / 2.3,
     );
   }
 }

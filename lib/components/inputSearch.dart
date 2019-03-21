@@ -12,12 +12,14 @@ class InputSearch extends StatefulWidget {
 
 class _InputSearchState extends State<InputSearch> {
   var inputController = new TextEditingController();
+  var str = "";
   @override
   void initState() {
     super.initState();
     inputController.addListener((){
-      if(widget.callbackValue != null)
-        widget.callbackValue(inputController.text);
+      setState(() {
+        str =inputController.value.text;
+      });
     });
   }
   @override
@@ -26,7 +28,7 @@ class _InputSearchState extends State<InputSearch> {
       child: Container(
           height: 35,
           width: widget.width,
-          padding: EdgeInsets.only(left: 15),
+          padding: EdgeInsets.only(left: 15, right: 5),
           margin: EdgeInsets.only(right: 15),
           decoration: BoxDecoration(
             //color: Colors.red,
@@ -44,6 +46,7 @@ class _InputSearchState extends State<InputSearch> {
               Flexible(
                 child: TextField(
                   controller: inputController,
+                  onSubmitted: (s) => widget.callbackValue(s),
                   decoration: InputDecoration(
                     hintText: "Search by movie or year",
                     hintStyle: TextStyle(fontSize: 16),
@@ -51,7 +54,15 @@ class _InputSearchState extends State<InputSearch> {
                     contentPadding: EdgeInsetsDirectional.only(bottom: 0)
                   )
                 ),
-              )
+              ),
+              str.length > 0 ?
+              GestureDetector(
+                child: Icon(Icons.close),
+                onTap: () {
+                  inputController.clear();
+                  widget.callbackValue("");
+                },
+              ) :Container()
             ],
           )),
     );
