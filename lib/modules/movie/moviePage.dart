@@ -96,8 +96,8 @@ class _MoviePageState extends State<MoviePage> {
             InkWell(
               child: Icon(Icons.menu, size: 40),
               onTap: (){
-                showDialog(context: context,builder:
-                  (context) => ContainerFilter(context, size.size.height, size.size.width , size.padding.top + 20, Colors.white));
+                Navigator.of(context).push(PageRouteBuilder(opaque: false,pageBuilder: (BuildContext context, _, __) => 
+                  ContainerFilter(context, size.size.height, size.size.width , size.padding.top + 20, Colors.white)));
               }
             )
           ]
