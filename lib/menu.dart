@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gabriel_app_filmes_games/modules/movie/moviePage.dart';
 import 'package:gabriel_app_filmes_games/pngIcons.dart';
+import 'package:gabriel_app_filmes_games/shared/theme.dart';
 
 
 class ItemMenu {
-  ItemMenu(this.title,this.icon, this.func, {this.profile = false, this.iconNetWork = null});
+  ItemMenu(this.title,this.icon, this.func, {this.profile = false, this.iconNetWork});
   String title;
   AssetImage icon;
   Object Function() func;
@@ -44,16 +45,15 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    var selectedTextStyle = TextStyle(color: Colors.green);
-    var notSelectedTextStyle = TextStyle(color: Colors.grey);
     return Scaffold(
+        backgroundColor: appTheme.primaryColor,
         body: Stack(
           alignment: Alignment(0, 1),
           children: <Widget>[
             body,
             Container(
               height: 55,
-              decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Colors.grey, width: 0.4))),
+              decoration: BoxDecoration(color: appTheme.primaryColor, border: Border(top: BorderSide(color: Colors.grey, width: 0.4))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: List.generate(menus.length,(index){
@@ -79,7 +79,7 @@ class _MenuState extends State<Menu> {
                         : Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              Container(width: 2,height: 25, decoration: BoxDecoration(color: Colors.grey)),
+                              Container(width: 2,height: 25, decoration: BoxDecoration(color: appTheme.secundaryColor)),
                               CircleAvatar(
                                 radius: 20.0,
                                 backgroundImage: menus[index].iconNetWork,

@@ -85,7 +85,6 @@ class _MoviePageState extends State<MoviePage> {
   Widget build(BuildContext context) {
     var size =MediaQuery.of(context);
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
       padding: EdgeInsets.only(top: size.padding.top + 10, bottom: 55, left: 10, right: 10),// 65 altura do menu
       child: Column(
       children: <Widget>[
