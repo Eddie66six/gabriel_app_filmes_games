@@ -20,13 +20,14 @@ class _CardMovieState extends State<CardMovie> {
     super.initState();
     if(widget.imageUrl != null){
       image = new NetworkImage(widget.imageUrl);
-      image.resolve(new ImageConfiguration()).addListener((_, __) {
+      image.resolve(new ImageConfiguration()).addListener(
+        ImageStreamListener((ImageInfo image, bool synchronousCall) {
         if (mounted) {
           setState(() {
             _loading = false;
           });
         }
-      });
+      }));
     }
   }
   @override
@@ -41,10 +42,11 @@ class _CardMovieState extends State<CardMovie> {
             BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.all(new Radius.circular(7.0)))
             : BoxDecoration(
               borderRadius: BorderRadius.all(new Radius.circular(7.0)),
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: image,
-              )),
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: image,
+                )
+              ),
         ),
         Container(
           width: widget.width/ 2.3,

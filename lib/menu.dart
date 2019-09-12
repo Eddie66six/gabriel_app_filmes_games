@@ -25,7 +25,7 @@ class _MenuState extends State<Menu> {
     ItemMenu("Games", PngIncons().gamepadSolid, ()=> null),
     ItemMenu("Movies", PngIncons().filmSolid, ()=> MoviePage()),
     ItemMenu("You List", PngIncons().heartSolid, ()=> null),
-    ItemMenu("Perfil", null, ()=> null, profile: true, iconNetWork: NetworkImage("https://www.scythe-industries.com/wp-content/uploads/2017/12/Iron-Maiden-Eddie-600x600.jpg"))
+    ItemMenu("Perfil", null, ()=> null, profile: true, iconNetWork: NetworkImage("https://pbs.twimg.com/profile_images/699611037922959360/30umi1vQ_400x400.jpg"))
   ];
   Widget body;
 

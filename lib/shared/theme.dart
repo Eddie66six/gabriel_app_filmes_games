@@ -19,7 +19,7 @@ class AppThemeModel {
   }
 
   getLightTheme() {
-    primaryColor = Color.fromARGB(255, 205, 138, 254);
+    primaryColor = Colors.grey;
     primaryFontColor = Color.fromARGB(255, 0, 0, 0);
     secundaryColor = Color.fromARGB(255, 191, 222, 204);
     secundaryFontColor = Color.fromARGB(255, 236, 236, 231);
